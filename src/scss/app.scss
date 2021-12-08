@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,600;0,900;1,700&display=swap');
+@import 'base/normalize';
+@import 'base/variables';
+@import 'base/mixins';
+@import 'base/globales';
+@import 'base/utilidades';
+
+@import 'layout/header';
+@import 'layout/about';
+@import 'layout/services';
+@import 'layout/portafolio';
+@import 'layout/contacto';
+@import 'layout/footer';

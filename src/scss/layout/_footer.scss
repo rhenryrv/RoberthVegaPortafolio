@@ -1,0 +1,21 @@
+.footer {
+    background-color: $moradoclaro;
+    margin-top: 5rem;
+
+    .contenido {
+        text-align: center  ;
+        display: flex;
+        justify-content: space-between; 
+    }
+    p {
+        color: $blanco;
+        font-size: 1.25rem;
+    }
+    .contacto__icono{
+        font-size: 3rem;
+    }
+    i{
+        margin-top: 2rem;  
+        color: $verdeclaro;
+    }
+}

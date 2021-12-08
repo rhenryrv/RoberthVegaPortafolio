@@ -1,0 +1,123 @@
+.contacto {
+    text-align: center; 
+    h2 {
+        font-size: 4rem;
+        line-height: 3rem;
+        
+        color: $verde;
+       
+    }
+    @include tablet {
+        text-align: left;
+        h2 {
+            
+            margin-top: 10rem;
+            margin-bottom: 2.5rem;
+        }
+    }
+    .contacto__grid{
+        
+        @include tablet {
+            margin: 0 10rem;
+            display: grid;
+            // gap: 5rem;
+            grid-template-columns: 1fr 3fr;
+        }
+    
+        
+    }
+    .contacto__icono {
+        
+        background-color: $moradoclaro ;
+        
+        @include tablet {
+            display: grid;
+            justify-items: center;
+        }
+        
+        
+        i {
+            margin: 2rem;
+            font-size: 4rem;
+            color: $verdeclaro;
+            &:hover{
+                cursor: pointer;
+                color: $verde;
+            }
+        }
+
+    }
+    .contacto_formulario{
+        // background-color: $moradoclaro;
+      
+        
+    }
+    .form {
+        border: 0 solid #e9d2e3;
+        border-width: 1px;
+        display: flex;
+        flex-direction: column;
+        @include tablet {
+            margin-left: 1rem;
+        }
+       
+        .form__input {
+            display: grid;
+            .form__nombre {
+                margin-top: 2rem;
+            }
+         
+            @include tablet {
+                label {
+                    margin-left: 2.5rem;
+                }
+            }
+         
+            input {
+                border-radius: 0.3rem;
+                
+                margin: 0 2rem 2rem 2rem;
+                height: 4rem;
+                border: 0 solid #e9d2e3;
+                border-width: 1px;
+            }
+            textarea {
+                  
+                margin: 0 2rem 2rem 2rem;
+                border: 0 solid #e9d2e3;
+                border-width: 1px;
+            }
+        }
+        .form__text {
+            input {
+                height: 8rem;
+            }
+        }
+        .form__but {
+            text-align: center;
+            input {
+                font-size: 2rem;
+                background-color: $verde;
+                font-weight: $black;
+             
+                border-radius: 1rem;
+                border: none;
+                color: $verdeclaro;  
+                &:hover{
+                    background-color: $verdeclaro;
+                    cursor: pointer;
+                    color: $verde;
+                } 
+            }
+            @include tablet { 
+                display: block;
+                input {
+                    height: 5rem;
+                    width: 12rem;
+                }
+            }
+            
+        }
+       
+    }
+}
