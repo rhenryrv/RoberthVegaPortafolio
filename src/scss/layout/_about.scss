@@ -84,6 +84,18 @@
             margin: 1rem;
             width: 35px;
         }
+        .about__skills__img--svg{
+            height: 35px;
+            object-fit: contain;
+            width: 35px;
+        }
+        .about__skills__fa{
+            color: $verde;
+            display: inline-block;
+            font-size: 3.5rem;
+            margin: 1rem;
+            min-height: 35px;
+        }
         @include tablet {
             @include grid (5, 0);
             
