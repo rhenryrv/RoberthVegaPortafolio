@@ -1,226 +1,1310 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roberth Vega | Portafolio Profesional</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Krub:wght@400;700&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="normalize.css"> -->
-    <link rel="preload" href="build/css/app.css" as="style">
-    <link rel="stylesheet" href="build/css/app.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roberth Vega — Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #080b12;
+    --bg2: #0d1120;
+    --bg3: #111827;
+    --surface: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.07);
+    --accent: oklch(70% 0.22 210);
+    --accent2: oklch(70% 0.22 170);
+    --text: #e8eaf0;
+    --muted: #7a8399;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-display);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* Grid texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(99,179,237,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,179,237,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  body::after {
+    content: '';
+    position: fixed;
+    top: -30vh;
+    left: -20vw;
+    width: 80vw;
+    height: 80vh;
+    background: radial-gradient(ellipse, oklch(45% 0.22 210 / 0.12) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(8,11,18,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  #hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    padding: 8rem 4rem 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-inner {
+    max-width: 620px;
+    flex-shrink: 0;
+  }
+
+  .hero-photo {
+    width: 320px;
+    height: 380px;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, oklch(45% 0.22 210 / 0.15), oklch(45% 0.22 170 / 0.08));
+    box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .hero-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+    background: linear-gradient(to bottom, transparent 60%, rgba(8,11,18,0.4) 100%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: oklch(70% 0.22 210 / 0.1);
+    border: 1px solid oklch(70% 0.22 210 / 0.25);
+    padding: 0.35rem 0.85rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  h1 span {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 560px;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: var(--accent);
+    color: #080b12;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 24px oklch(70% 0.22 210 / 0.3);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 32px oklch(70% 0.22 210 / 0.5);
+  }
+
+  .btn-secondary {
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: oklch(70% 0.22 210 / 0.4);
+    background: oklch(70% 0.22 210 / 0.05);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.1em;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollDown 2s ease infinite;
+  }
+
+  @keyframes scrollDown {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    50.01% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* SECTION */
+  section {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 7rem 4rem;
+  }
+
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .section-sep {
+    width: 48px;
+    height: 3px;
+    background: linear-gradient(to right, var(--accent), var(--accent2));
+    border-radius: 2px;
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  #about .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .about-text p strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .about-stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .stat-card:hover {
+    border-color: oklch(70% 0.22 210 / 0.3);
+    background: oklch(70% 0.22 210 / 0.05);
+  }
+
+  .stat-num {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  /* SKILLS */
+  #skills {
+    background: var(--bg2);
+    max-width: 100%;
+    padding: 7rem 0;
+  }
+
+  #skills .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s, background 0.2s;
+    cursor: default;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-4px);
+    border-color: oklch(70% 0.22 210 / 0.35);
+    background: oklch(70% 0.22 210 / 0.07);
+  }
+
+  .skill-icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 0.75rem;
+    display: block;
+    filter: brightness(0) invert(1) opacity(0.7);
+    transition: filter 0.2s, opacity 0.2s;
+  }
+
+  .skill-card:hover .skill-icon {
+    filter: brightness(0) saturate(100%) invert(73%) sepia(60%) saturate(500%) hue-rotate(170deg);
+    opacity: 1;
+  }
+
+  .skill-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    border-color: oklch(70% 0.22 210 / 0.35);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .project-thumb {
+    width: 100%;
+    height: 180px;
+    background: var(--bg3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-thumb-inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    background:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.015) 0px,
+        rgba(255,255,255,0.015) 1px,
+        transparent 1px,
+        transparent 12px
+      );
+  }
+
+  .project-thumb-icon {
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.15;
+  }
+
+  .project-body {
+    padding: 1.75rem;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+    background: oklch(70% 0.22 210 / 0.1);
+    border: 1px solid oklch(70% 0.22 210 / 0.2);
+    color: var(--accent);
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+    transition: gap 0.2s;
+  }
+
+  .project-link:hover { gap: 0.7rem; }
+
+  /* SERVICES */
+  #services {
+    background: var(--bg2);
+    max-width: 100%;
+    padding: 7rem 0;
+  }
+
+  #services .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: border-color 0.25s, background 0.25s, transform 0.25s;
+  }
+
+  .service-card:hover {
+    border-color: oklch(70% 0.22 210 / 0.35);
+    background: oklch(70% 0.22 210 / 0.05);
+    transform: translateY(-3px);
+  }
+
+  .service-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: oklch(70% 0.22 210 / 0.12);
+    border: 1px solid oklch(70% 0.22 210 / 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    font-size: 1.2rem;
+  }
+
+  .service-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  .service-desc {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CONTACT */
+  #contact .contact-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #contact .section-label,
+  #contact .section-title,
+  #contact .section-sep {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #contact .section-sep {
+    margin: 0 auto 2rem;
+  }
+
+  .contact-desc {
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--muted);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: oklch(70% 0.22 210 / 0.5);
+    background: oklch(70% 0.22 210 / 0.05);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 130px; }
+
+  .form-submit {
+    padding: 0.9rem 2.5rem;
+    background: var(--accent);
+    color: #080b12;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 24px oklch(70% 0.22 210 / 0.3);
+    align-self: center;
+    width: 100%;
+  }
+
+  .form-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 32px oklch(70% 0.22 210 / 0.5);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+  }
+
+  .footer-logo {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-link {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .social-link:hover {
+    border-color: oklch(70% 0.22 210 / 0.4);
+    background: oklch(70% 0.22 210 / 0.1);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* TWEAKS PANEL */
+  #tweaks-panel {
+    display: none;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    background: rgba(13,17,32,0.95);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    width: 260px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  }
+
+  #tweaks-panel.active { display: block; }
+
+  .tweaks-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tweak-row {
+    margin-bottom: 1.25rem;
+  }
+
+  .tweak-row label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+
+  .tweak-options {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tweak-btn {
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    transition: all 0.15s;
+  }
+
+  .tweak-btn.active, .tweak-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: oklch(70% 0.22 210 / 0.1);
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: oklch(70% 0.22 210 / 0.15);
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.75rem 1.5rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-family: var(--font-mono);
+    z-index: 999;
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { padding: 6rem 1.5rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    #skills .inner, #services .inner { padding: 0 1.5rem; }
+  }
+</style>
 </head>
 <body>
-    <header class="header" id="header">
-        <div class="header__main ">
-            <div class="header__barra text-center ">
-            <nav class="navegacion contenedor ">
-                    <a class="logo" href="#">LOGO</a>
-                    <button class="nav-toggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    
-                    <ul class="navegacion_menu">
-                        <li class="navegacion_li"><a class="navegacion__enlace navegacion__enlace-active" href="#header">Inicio</a></li>
-                        <li class="navegacion_li"><a class="navegacion__enlace " href="#about">Sobre mí</a></li>
-                        <li class="navegacion_li"><a class="navegacion__enlace " href="#services">Servicios</a></li>
-                        <li class="navegacion_li"><a class="navegacion__enlace " href="#portafolio">Portafolio</a></li>
-                        <li class="navegacion_li"><a class="navegacion__enlace " href="#contacto">Contacto</a></li>
-                    </ul>      
-            </nav>
-            
-            </div>
-            <div class="header__contenido contenedor">
-                <div class="header__texto">
-                    <!-- <span>Hola!</span> -->
-                    <h1>Hola, <br> Soy <span>Roberth</span> </h1>
-                    <span>-Ingeniero de Sistemas e Informatica-</span> <br>
-                    <span>-Developer Java / Spring / Angular-</span>
-                </div> 
-                <img class="header__img2" src="build/img/img8.svg" alt="Foto perfil">
-            </div>
-         </div>
-    </header>
-    <main>
-        <section id="about" class="about contenedor">
-            <h2 class="about__titulo">Sobre mi</h2>
-            <div class="about__grid">
-                <div class="about__contenido--texto">
-                        <h3>Soy Roberth Vega, Ingeniero de Sistemas e Informatica.</h3>
-                        <p>Actualmente me desempeno como Developer, enfocado en soluciones empresariales con Java, Spring Framework y Angular. Cuento con experiencia en despliegues con Docker y AWS, asi como en bases de datos PostgreSQL y SQL Server. Mi enfoque es construir software escalable, mantenible y orientado a resultados de negocio.</p>
-                        <p>Entre los proyectos que he completado, destaque la migracion de un sistema de recursos humanos de escritorio hacia una arquitectura web moderna con Angular, Java y Spring. Tambien participe en proyectos para clientes de Estados Unidos, desarrollando modulos contables con Java, Spring y Angular.</p>
-                        <button >Descargar CV</button>
-                </div>
-                <div class="about__skills">
-                    <h3 class="about__skill_titulo">Tecnologias principales:</h3>
-                    <div class="about__skills__iconos">
-                        <div class="about__skill__icono">
-                            <img class="about__skills__img about__skills__img--svg" src="https://cdn.simpleicons.org/openjdk" alt="Java logo">
-                            <p>Java</p>
-                        </div>
-                        <div class="about__skill__icono">
-                            <img class="about__skills__img about__skills__img--svg" src="https://cdn.simpleicons.org/spring" alt="Spring Framework logo">
-                            <p>Spring Framework</p>
-                        </div>
-                        <div class="about__skill__icono">
-                            <img class="about__skills__img about__skills__img--svg" src="https://cdn.simpleicons.org/angular" alt="Angular logo">
-                            <p>Angular</p>                        </div>
-                        <div class="about__skill__icono">
-                            <img class="about__skills__img about__skills__img--svg" src="https://cdn.simpleicons.org/docker" alt="Docker logo">
-                            <p>Docker</p>
-                        </div>
-                        <div class="about__skill__icono">
-                            <img class="about__skills__img about__skills__img--svg" src="https://cdn.simpleicons.org/amazonaws" alt="AWS logo">
-                            <p>AWS</p>
-                        </div>
-                        <div class="about__skill__icono">
-                            <img class="about__skills__img about__skills__img--svg" src="https://cdn.simpleicons.org/postgresql" alt="PostgreSQL logo">
-                            <p>PostgreSQL</p>
-                        </div>
-                        <div class="about__skill__icono">
-                            <img class="about__skills__img about__skills__img--svg" src="https://cdn.simpleicons.org/microsoftsqlserver" alt="SQL Server logo">
-                            <p>SQL Server</p>
-                        </div>
-                        <div class="about__skill__icono"><img class="about__skills__img about__skills__img--svg" src="https://cdn.simpleicons.org/github" alt="GitHub logo">
-                            <p>GitHub</p>                        </div>
-                        <div class="about__skill__icono"><img class="about__skills__img about__skills__img--svg" src="https://cdn.simpleicons.org/typescript" alt="TypeScript logo">
-                            <p>TypeScript</p>                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="services" class="services contenedor">
-            <h2 >Servicios</h2>
-            <h3 >¿Como puedo aportar a tu proyecto?</h3>
-            <div class="services__grid">
-                <div class="services__grid__contenido">
-                    <i class="fas fa-code"></i>
-                    <h3>Aplicaciones Web Empresariales</h3>
-                    <p class="servicio__texto">Desarrollo de aplicaciones web robustas con Java, Spring y Angular, orientadas a procesos internos, trazabilidad y eficiencia operativa.</p> 
-                </div>
-                <div class="services__grid__contenido">
-                    <i class="far fa-window-restore"></i>
-                                        <h3>Migracion de Sistemas Legacy</h3>
-                                            <p class="servicio__texto">Modernizacion de sistemas de escritorio hacia plataformas web modernas, manteniendo reglas de negocio y mejorando la experiencia de usuario.</p>
-                </div>
-                <div class="services__grid__contenido">
-                    <i class="fas fa-server"></i>
-                                        <h3>Arquitectura y Despliegue</h3>
-                                        <p class="servicio__texto">Implementacion de soluciones con Docker y AWS para lograr despliegues confiables, escalabilidad y mejor disponibilidad.
-                      </p>
-                </div>
-                <div class="services__grid__contenido">
-                    <i class="fas fa-user-lock"></i>
-                    <h3>APIs y Backends con Spring</h3>
-                    <p class="servicio__texto">Construccion de APIs seguras y mantenibles con Spring Framework, integradas con frontends Angular y servicios externos.</p>
-                </div>
-                <div class="services__grid__contenido">
-                    <i class="fas fa-users"></i>
-                                        <h3>Consultoria Tecnica</h3>
-                                            <p class="servicio__texto">Acompanamiento en decisiones tecnicas, definicion de arquitectura, estimaciones y buenas practicas para equipos de desarrollo.</p>
-                </div>
-                <div class="services__grid__contenido">
-                    <i class="fas fa-users-cog"></i>
-                    <h3>Integracion de Bases de Datos</h3>
-                    <p class="servicio__texto">Diseno e integracion de soluciones con PostgreSQL y SQL Server, optimizando consultas, modelos de datos y rendimiento.</p>
-                </div>
-            </div>
-          
-        </section>
-        <section id="portafolio" class=" portafolio contenedor">
-            <h2 class="portafolio__titulo">Portafolio</h2>
-            <h3 class="portafolio__titulo2">Proyectos destacados</h3>
-            <div class="portafolio__grid">
-                <div class="portafolio__contenido">
-                    <img src="build/img/festmusic.png" alt="">       
-                    <h3>Migracion Sistema de Recursos Humanos</h3>
-                    <p>Migracion de aplicacion de escritorio a plataforma web con Angular, Java y Spring, mejorando procesos y mantenimiento.</p>
-                    <span>
-                        <button ><a href="google.com">Ver Demo</a></button>
-                    <a href="https://github.com/rhenryrv" target="_blank"><i class="fab fa-github"></i></a>
-                    </span>
-                </div>
-                <div class="portafolio__contenido">
-                    <img src="build/img/appsalonspa.png" alt="">
-                    <h3>Proyecto Contable para Cliente USA</h3>
-                    <p>Desarrollo de modulos contables con Java, Spring y Angular para operaciones financieras orientadas a mercado estadounidense.</p>
-                    <span>
-                        <button > <a href="">Ver Demo</a></button>
-                        <a href="https://github.com/rhenryrv" target="_blank"><i class="fab fa-github"></i></a>
-                    </span>
-                    
-                </div>
-                <div class="portafolio__contenido">
-                    <img src="build/img/BlogCafe.png" alt="">
-                    <h3>Soluciones Full Stack Empresariales</h3>
-                    <p>Implementacion de soluciones integrales con backend en Spring, frontend en Angular y despliegue en infraestructura cloud.</p>
-                    <span>
-                        <button > <a href="">Ver Demo</a></button>
-                        <a href="https://github.com/rhenryrv" target="_blank"><i class="fab fa-github"></i></a>
-                    </span>
-                </div>
-            </div>
-        </section>
-        <section id="contacto" class="contacto contenedor">
-            <h2 class="contacto_titulo">Contacto</h2>
-            <h3>Conversemos sobre tu siguiente proyecto</h3>
-            <div class="contacto__grid">
-                <div class="contacto__icono">
-                    <a href="mailto:roberth.vega@outlook.com"><i class="fas fa-envelope"></i></a>
-                    <a href="https://github.com/rhenryrv" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/henry-vega-776811b8/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://api.whatsapp.com/send/?phone=956028841&text&app_absent=0" target="_blank"><i class="fab fa-whatsapp-square"></i></a>
-                    
-                </div>
-                <div class="contacto_formulario">
-                    
-                    <form action="POST" class="form">
-                        
-                        <div class="form__input">
-                            <label class="form__nombre">Nombre</label>
-                            <input type="text" value="">    
-                        </div>
-                        <div class="form__input ">
-                            <label >Correo</label>
-                            <input type="mail" value="">
-                        </div>
-                        <div class="form__input form__text">
-                            <label >Mensaje</label>
-                            <textarea name="" id="" cols="30" rows="5"></textarea>
-                        </div>
-                        <div class="form__input form__but">
-                            
-                            <input type="submit" value="Enviar">    
-                        </div>
-                        
-                    </form>
-                </div>
-            </div>
-          
-            
-        </section>
-      
-        <footer class="footer ">
-            <div class="contenido contenedor">
-                <span>
-                    <p>Copyright © 2026 Todos los derechos reservados</p>
-                    <p>Desarrollado por Roberth Vega</p>
-                </span>
-                
-                <div class="contacto__icono">
-                    <a href="mailto:roberth.vega@outlook.com"><i class="fas fa-envelope"></i></a>
-                    <a href="https://github.com/rhenryrv" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/henry-vega-776811b8/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://api.whatsapp.com/send/?phone=956028841&text&app_absent=0" target="_blank"><i class="fab fa-whatsapp-square"></i></a>
-                    
-                </div>
-            </div>
-            
-        </footer>
 
-    </main>
-    
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">rv.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experiencia</a></li>
+    <li><a href="#projects">Proyectos</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+  <div style="display:flex;gap:0.75rem;align-items:center;">
+    <a href="https://github.com/rhenryrv" target="_blank" style="color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:500;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="https://linkedin.com/in/roberth-vega-chupos-776811b8" target="_blank" style="color:var(--muted);text-decoration:none;font-size:0.82rem;font-weight:500;display:flex;align-items:center;gap:0.4rem;transition:color 0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      LinkedIn
+    </a>
+  </div>
+</nav>
 
-    
-    <script src="build/js/bundle.js"></script>
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Disponible para proyectos</div>
+    <h1>Hola, soy<br><span>Roberth Vega</span></h1>
+    <p class="hero-sub">Ingeniero de Sistemas e Informática — Analista Programador Full Stack con <strong style="color:var(--text)">+9 años de experiencia</strong> en Java, Spring Boot, Angular y SQL Server. Lima, Perú.</p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">Ver proyectos</a>
+      <a href="#contact" class="btn-secondary">Conversemos</a>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="uploads/profile.png" alt="Roberth Vega">
+  </div>
+  <div class="hero-scroll">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label reveal">// sobre mí</div>
+  <h2 class="section-title reveal">Ingeniero que construye<br>soluciones que perduran</h2>
+  <div class="section-sep reveal"></div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>Soy <strong>Roberth Henry Vega Chupos</strong>, Ingeniero de Sistemas e Informática egresado de la <strong>UTP (2019–2023)</strong>. Me desempeño como <strong>Analista Programador Full Stack</strong> con más de 9 años de experiencia en desarrollo de software empresarial.</p>
+      <p>He trabajado en empresas del sector salud, educación y distribución, desarrollando soluciones con <strong>Java, Spring Boot, Angular, SQL Server y Python</strong>. También tengo experiencia en infraestructura: <strong>Windows Server, VMware VSphere, Fortinet y automatización de procesos</strong>.</p>
+      <p>Me apasiona construir sistemas que resuelvan problemas reales, con código limpio, escalable y orientado a resultados de negocio.</p>
+      <br>
+      <a href="https://linkedin.com/in/roberth-vega-chupos-776811b8" target="_blank" class="btn-primary">Ver CV en LinkedIn</a>
+    </div>
+    <div class="about-stat-grid reveal">
+      <div class="stat-card">
+        <div class="stat-num">9+</div>
+        <div class="stat-label">Años de experiencia profesional en TI</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Empresas donde trabajé como Analista</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Tecnologías dominadas</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">UTP</div>
+        <div class="stat-label">Ing. Sistemas e Informática 2019–2023</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="inner">
+    <div class="section-label reveal">// tecnologías</div>
+    <h2 class="section-title reveal">Stack principal</h2>
+    <div class="section-sep reveal"></div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/openjdk/white" alt="Java">
+        <div class="skill-name">Java</div>
+      </div>
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/spring/white" alt="Spring">
+        <div class="skill-name">Spring</div>
+      </div>
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/angular/white" alt="Angular">
+        <div class="skill-name">Angular</div>
+      </div>
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/typescript/white" alt="TypeScript">
+        <div class="skill-name">TypeScript</div>
+      </div>
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/docker/white" alt="Docker">
+        <div class="skill-name">Docker</div>
+      </div>
+      <div class="skill-card reveal">
+        <svg class="skill-icon" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M6.763 10.036c0 .296.032.535.088.71.064.176.144.368.256.576.04.072.056.144.056.208 0 .096-.056.192-.176.288l-.584.392a.371.371 0 01-.232.08.364.364 0 01-.288-.136 2.99 2.99 0 01-.344-.448 7.477 7.477 0 01-.296-.576c-.744.88-1.68 1.32-2.808 1.32-.8 0-1.44-.232-1.912-.688C.248 11.276 0 10.668 0 9.908c0-.808.28-1.464.848-1.952.568-.488 1.32-.736 2.272-.736.32 0 .648.024.992.072.344.048.696.12 1.064.208v-.664c0-.712-.144-1.208-.432-1.496-.288-.288-.784-.432-1.488-.432-.32 0-.648.04-.984.12-.336.08-.664.184-.984.32-.144.064-.248.096-.312.112a.528.528 0 01-.144.024c-.128 0-.192-.096-.192-.288v-.456c0-.152.016-.264.056-.328.04-.064.12-.128.24-.192.32-.168.704-.312 1.152-.432A5.47 5.47 0 014.6 4.32c1.016 0 1.76.232 2.24.696.472.464.712 1.168.712 2.112v2.908zm-3.88 1.448c.304 0 .616-.056.944-.168.328-.112.624-.32.872-.6.144-.176.256-.368.312-.584.056-.216.088-.472.088-.776V9.08a7.766 7.766 0 00-.864-.16 7.12 7.12 0 00-.872-.056c-.624 0-1.08.12-1.384.368-.304.248-.456.6-.456 1.064 0 .432.112.76.336.984.224.232.544.344.96.344l.064.004zm7.46 1.016c-.168 0-.28-.032-.352-.096-.072-.056-.136-.184-.192-.36L8.12 5.688a1.617 1.617 0 01-.088-.368c0-.144.072-.224.216-.224h.88c.176 0 .296.032.36.096.072.056.128.184.184.36l1.28 5.032 1.184-5.032c.048-.184.104-.304.176-.36.072-.056.2-.096.368-.096h.72c.176 0 .296.032.376.096.072.056.136.184.176.36l1.2 5.096 1.32-5.096c.056-.184.12-.304.184-.36.072-.056.192-.096.36-.096h.832c.144 0 .224.072.224.224 0 .04-.008.08-.016.128-.008.048-.024.112-.056.2l-1.84 6.356c-.056.184-.12.304-.192.36-.072.056-.184.096-.344.096h-.776c-.176 0-.296-.032-.376-.096-.072-.056-.136-.192-.176-.368l-1.176-4.904-1.168 4.896c-.048.176-.104.312-.176.368-.072.056-.2.096-.376.096h-.776zm9.836.192c-.472 0-.944-.056-1.4-.168-.456-.112-.808-.232-1.048-.368-.144-.088-.248-.184-.28-.272a.688.688 0 01-.048-.256v-.472c0-.192.072-.288.208-.288.056 0 .112.008.168.024.056.016.136.056.224.096.304.136.632.24.984.312.36.072.712.104 1.072.104.568 0 1.008-.096 1.32-.296.312-.2.472-.488.472-.856 0-.256-.08-.464-.24-.632-.16-.168-.464-.32-.904-.464l-1.296-.4c-.656-.208-1.144-.52-1.448-.928-.304-.4-.456-.84-.456-1.312 0-.384.08-.72.24-1.008.16-.288.376-.544.648-.744.272-.2.576-.352.928-.456.352-.104.72-.152 1.104-.152.192 0 .392.008.584.04.2.024.384.064.568.104.176.04.344.088.504.144.16.056.288.112.384.168.128.08.216.16.272.248.056.08.08.192.08.336v.44c0 .192-.072.296-.208.296-.072 0-.192-.04-.344-.112a4.14 4.14 0 00-1.736-.36c-.512 0-.912.08-1.192.248-.28.168-.424.432-.424.8 0 .256.088.472.264.648.176.176.504.352.976.504l1.272.4c.648.208 1.12.504 1.4.888.28.384.424.824.424 1.304 0 .392-.08.744-.232 1.048-.16.304-.376.568-.664.784-.288.224-.632.392-1.032.504-.416.12-.864.176-1.344.176z"/></svg>
+        <div class="skill-name">AWS</div>
+      </div>
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/python/white" alt="Python">
+        <div class="skill-name">Python</div>
+      </div>
+      <div class="skill-card reveal">
+        <svg class="skill-icon" viewBox="0 0 24 24" fill="white"><path d="M1.194 7.543v8.913c0 1.103.588 2.122 1.544 2.674l7.718 4.456c.956.553 2.134.553 3.088 0l7.718-4.456c.956-.552 1.544-1.571 1.544-2.674V7.543c0-1.103-.588-2.122-1.544-2.674L13.544.413c-.956-.551-2.132-.551-3.088 0L2.738 4.869C1.782 5.421 1.194 6.44 1.194 7.543zm11.907 5.359l-1.071.617a2.573 2.573 0 01-2.57 0l-1.071-.617a2.576 2.576 0 01-1.286-2.226V9.82c0-.916.49-1.763 1.286-2.226l1.071-.617a2.573 2.573 0 012.57 0l1.071.617c.796.463 1.286 1.31 1.286 2.226v1.856a2.574 2.574 0 01-1.286 2.226zm3.271-1.94h.862v.862h-.862v-.862zm0-1.724h.862v.862h-.862v-.862zm-1.724 1.724h.862v.862h-.862v-.862zm0-1.724h.862v.862h-.862v-.862z"/></svg>
+        <div class="skill-name">C# .NET</div>
+      </div>
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/postgresql/white" alt="PostgreSQL">
+        <div class="skill-name">PostgreSQL</div>
+      </div>
+      <div class="skill-card reveal">
+        <svg class="skill-icon" viewBox="0 0 24 24" fill="white"><path d="M12 0C6.6 0 2 2.7 2 6v12c0 3.3 4.6 6 10 6s10-2.7 10-6V6c0-3.3-4.6-6-10-6zm8 18c0 1.9-3.6 4-8 4s-8-2.1-8-4v-2.4c1.8 1.5 4.7 2.4 8 2.4s6.2-.9 8-2.4V18zm0-6c0 1.9-3.6 4-8 4s-8-2.1-8-4v-2.4C5.8 11.1 8.7 12 12 12s6.2-.9 8-2.4V12zm-8-2C7.6 10 4 7.9 4 6s3.6-4 8-4 8 2.1 8 4-3.6 4-8 4z"/></svg>
+        <div class="skill-name">SQL Server</div>
+      </div>
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/mysql/white" alt="MySQL">
+        <div class="skill-name">MySQL</div>
+      </div>
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/html5/white" alt="HTML5">
+        <div class="skill-name">HTML5 / CSS</div>
+      </div>
+      <div class="skill-card reveal">
+        <img class="skill-icon" src="https://cdn.simpleicons.org/github/white" alt="GitHub">
+        <div class="skill-name">GitHub</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="background:var(--bg2);max-width:100%;padding:7rem 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 4rem;">
+    <div class="section-label reveal">// trayectoria</div>
+    <h2 class="section-title reveal">Experiencia profesional</h2>
+    <div class="section-sep reveal"></div>
+    <div style="display:flex;flex-direction:column;gap:0;position:relative;">
+      <div style="position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0.3;"></div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:24px 1fr;gap:1.5rem 2rem;padding-bottom:2.5rem;">
+        <div style="width:24px;height:24px;border-radius:50%;background:oklch(70% 0.22 210/0.15);border:2px solid var(--accent);margin-top:4px;flex-shrink:0;"></div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+            <div>
+              <div style="font-size:1.05rem;font-weight:700;margin-bottom:0.2rem;">Analista Programador</div>
+              <div style="font-size:0.9rem;color:var(--accent);font-weight:600;">TCONTAKTO</div>
+            </div>
+            <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);background:var(--surface);padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--border);">Abril 2023 – Junio 2023</div>
+          </div>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Desarrollo BackEnd y FrontEnd, automatización de procesos de campañas con proveedores.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">MS SQL</span><span class="tag">Python</span></div>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:24px 1fr;gap:1.5rem 2rem;padding-bottom:2.5rem;">
+        <div style="width:24px;height:24px;border-radius:50%;background:oklch(70% 0.22 210/0.15);border:2px solid var(--accent);margin-top:4px;flex-shrink:0;"></div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+            <div>
+              <div style="font-size:1.05rem;font-weight:700;margin-bottom:0.2rem;">Analista Programador</div>
+              <div style="font-size:0.9rem;color:var(--accent);font-weight:600;">Congregación Hermanos Maristas</div>
+            </div>
+            <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);background:var(--surface);padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--border);">Dic 2021 – Sep 2022</div>
+          </div>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Desarrollo Full Stack, automatización de procesos Canvas Data y módulos de Presupuestos. Reportes con Power BI.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">MySQL</span><span class="tag">Python</span><span class="tag">Power BI</span></div>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:24px 1fr;gap:1.5rem 2rem;padding-bottom:2.5rem;">
+        <div style="width:24px;height:24px;border-radius:50%;background:oklch(70% 0.22 210/0.15);border:2px solid var(--accent);margin-top:4px;flex-shrink:0;"></div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+            <div>
+              <div style="font-size:1.05rem;font-weight:700;margin-bottom:0.2rem;">Analista de Sistemas</div>
+              <div style="font-size:0.9rem;color:var(--accent);font-weight:600;">Red Salud S.A.C.</div>
+            </div>
+            <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);background:var(--surface);padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--border);">Sep 2019 – Ago 2020</div>
+          </div>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Programación de turnos médicos, reportes SQL, administración de infraestructura TI (VoIP, Firewall Cyberoam, VMware VSphere, Windows Server).</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">MS SQL Server</span><span class="tag">ERP</span><span class="tag">VMware VSphere</span><span class="tag">Windows Server</span></div>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:24px 1fr;gap:1.5rem 2rem;padding-bottom:2.5rem;">
+        <div style="width:24px;height:24px;border-radius:50%;background:oklch(70% 0.22 210/0.15);border:2px solid var(--accent);margin-top:4px;flex-shrink:0;"></div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+            <div>
+              <div style="font-size:1.05rem;font-weight:700;margin-bottom:0.2rem;">Analista Programador / Soporte Técnico</div>
+              <div style="font-size:0.9rem;color:var(--accent);font-weight:600;">Panorama Distribuidores S.A.C.</div>
+            </div>
+            <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);background:var(--surface);padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--border);">Ene 2015 – Ago 2019 · 5 años</div>
+          </div>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Desarrollo de módulos ERP en C# Visual Studio, Stored Procedures SQL Server, QA, administración Windows Server 2012, VPS y servidor Asterisk.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">C# .NET</span><span class="tag">SQL Server</span><span class="tag">Windows Server</span><span class="tag">Fortinet</span><span class="tag">VMware</span></div>
+        </div>
+      </div>
+
+      <div class="reveal" style="display:grid;grid-template-columns:24px 1fr;gap:1.5rem 2rem;">
+        <div style="width:24px;height:24px;border-radius:50%;background:oklch(70% 0.22 210/0.15);border:2px solid var(--accent);margin-top:4px;flex-shrink:0;"></div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
+            <div>
+              <div style="font-size:1.05rem;font-weight:700;margin-bottom:0.2rem;">Freelance / Consultor</div>
+              <div style="font-size:0.9rem;color:var(--accent);font-weight:600;">INVERAGRO · NEXUSS · TECXOF</div>
+            </div>
+            <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);background:var(--surface);padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--border);">Varios períodos</div>
+          </div>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Desarrollo con Java Spring Boot y Angular (INVERAGRO), consultoría en infraestructura de servidores EsSalud (NEXUSS), consultoría BDD y RDP (TECXOF).</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">Infraestructura</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label reveal">// portafolio</div>
+  <h2 class="section-title reveal">Proyectos destacados</h2>
+  <div class="section-sep reveal"></div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-thumb">
+        <div class="project-thumb-inner"><span class="project-thumb-icon">👥</span></div>
+      </div>
+      <div class="project-body">
+        <div class="project-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">SQL Server</span></div>
+        <div class="project-title">Sistema de Recursos Humanos — ILITC</div>
+        <p class="project-desc">Plataforma web de gestión de RRHH. Módulos de personal, asistencia y reportería. Migración de sistema de escritorio a arquitectura web moderna.</p>
+        <a href="https://lit.ilitc.com/#/auth/login" target="_blank" class="project-link">Ver demo →</a>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-thumb">
+        <div class="project-thumb-inner"><span class="project-thumb-icon">📚</span></div>
+      </div>
+      <div class="project-body">
+        <div class="project-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">MySQL</span><span class="tag">Power BI</span></div>
+        <div class="project-title">Plataforma Canvas Data — Hermanos Maristas</div>
+        <p class="project-desc">Automatización de procesos educativos con Canvas Data y módulo de Presupuestos. Dashboards de reportería con Power BI.</p>
+        <a href="#" class="project-link" onclick="showToast('Demo privado'); return false;">Proyecto privado →</a>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-thumb">
+        <div class="project-thumb-inner"><span class="project-thumb-icon">🏭</span></div>
+      </div>
+      <div class="project-body">
+        <div class="project-tags"><span class="tag">C# .NET</span><span class="tag">SQL Server</span><span class="tag">ERP</span><span class="tag">Windows Server</span></div>
+        <div class="project-title">Módulos ERP — Panorama Distribuidores</div>
+        <p class="project-desc">Desarrollo de módulos de Logística, Compras y Ventas sobre sistema ERP empresarial en C# Visual Studio, con SQL Server 2014.</p>
+        <a href="#" class="project-link" onclick="showToast('Demo privado'); return false;">Proyecto privado →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background:var(--bg2);max-width:100%;padding:7rem 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 4rem;">
+    <div class="section-label reveal">// formación</div>
+    <h2 class="section-title reveal">Educación & Certificaciones</h2>
+    <div class="section-sep reveal"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+      <div class="stat-card reveal" style="padding:2rem;">
+        <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">Educación Superior</div>
+        <div style="margin-bottom:1.5rem;">
+          <div style="font-weight:700;font-size:1rem;margin-bottom:0.2rem;">Ingeniería de Sistemas e Informática</div>
+          <div style="color:var(--accent);font-size:0.88rem;margin-bottom:0.2rem;">Universidad Tecnológica del Perú — UTP</div>
+          <div style="color:var(--muted);font-size:0.8rem;font-family:var(--font-mono);">2019 – 2023</div>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:1rem;margin-bottom:0.2rem;">Técnico en Computación e Informática</div>
+          <div style="color:var(--accent);font-size:0.88rem;margin-bottom:0.2rem;">I.S.T.P. José Santos Chocano</div>
+          <div style="color:var(--muted);font-size:0.8rem;font-family:var(--font-mono);">2009 – 2012</div>
+        </div>
+      </div>
+      <div class="stat-card reveal" style="padding:2rem;">
+        <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">Certificaciones & Cursos</div>
+        <div style="display:flex;flex-direction:column;gap:1rem;">
+          <div>
+            <div style="font-weight:600;font-size:0.9rem;margin-bottom:0.1rem;">Windows Server 2016</div>
+            <div style="color:var(--muted);font-size:0.8rem;margin-bottom:0.3rem;">Udemy · 2018</div>
+            <a href="https://www.udemy.com/certificate/UC-F11QNIK3/" target="_blank" style="font-size:0.78rem;color:var(--accent);text-decoration:none;font-family:var(--font-mono);">Ver certificado →</a>
+          </div>
+          <div>
+            <div style="font-weight:600;font-size:0.9rem;margin-bottom:0.1rem;">Base de Datos MS SQL Server 2014 + Visual Studio</div>
+            <div style="color:var(--muted);font-size:0.8rem;">CIBERTEC · 2016</div>
+          </div>
+          <div>
+            <div style="font-weight:600;font-size:0.9rem;margin-bottom:0.1rem;">Administración de Redes Windows Server / CentOS</div>
+            <div style="color:var(--muted);font-size:0.8rem;">Instituto IDAT · 2013</div>
+          </div>
+          <div>
+            <div style="font-weight:600;font-size:0.9rem;margin-bottom:0.1rem;">Idiomas</div>
+            <div style="color:var(--muted);font-size:0.8rem;">Inglés Intermedio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="section-label reveal">// contacto</div>
+    <h2 class="section-title reveal">Conversemos sobre<br>tu siguiente proyecto</h2>
+    <div class="section-sep reveal"></div>
+    <p class="contact-desc reveal">Estoy disponible para nuevos proyectos y colaboraciones. Si tienes una idea o un desafío técnico, me encantaría escucharte.</p>
+    <form class="contact-form reveal" onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label>Correo</label>
+          <input type="email" placeholder="tu@correo.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Mensaje</label>
+        <textarea placeholder="Cuéntame sobre tu proyecto..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Enviar mensaje</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">rv.dev</div>
+  <div class="footer-copy">© 2026 Roberth Vega — Todos los derechos reservados</div>
+  <div class="social-links">
+    <a href="https://github.com/rhenryrv" class="social-link" target="_blank" title="GitHub">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#7a8399"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+    </a>
+    <a href="https://linkedin.com/in/roberth-vega-chupos-776811b8" class="social-link" target="_blank" title="LinkedIn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="#7a8399"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- TWEAKS PANEL -->
+<div id="tweaks-panel">
+  <div class="tweaks-title">⚙ Tweaks</div>
+
+  <div class="tweak-row">
+    <label>Color de acento</label>
+    <div class="tweak-options">
+      <button class="tweak-btn active" onclick="setAccent('210','Cyan azul',this)">Azul</button>
+      <button class="tweak-btn" onclick="setAccent('155','Verde',this)">Verde</button>
+      <button class="tweak-btn" onclick="setAccent('280','Violeta',this)">Violeta</button>
+      <button class="tweak-btn" onclick="setAccent('30','Naranja',this)">Naranja</button>
+    </div>
+  </div>
+
+  <div class="tweak-row">
+    <label>Fondo</label>
+    <div class="tweak-options">
+      <button class="tweak-btn active" onclick="setBg('dark',this)">Oscuro</button>
+      <button class="tweak-btn" onclick="setBg('navy',this)">Navy</button>
+      <button class="tweak-btn" onclick="setBg('charcoal',this)">Carbón</button>
+    </div>
+  </div>
+
+  <div class="tweak-row">
+    <label>Tipografía</label>
+    <div class="tweak-options">
+      <button class="tweak-btn active" onclick="setFont('Space Grotesk',this)">Grotesk</button>
+      <button class="tweak-btn" onclick="setFont('Sora',this)">Sora</button>
+      <button class="tweak-btn" onclick="setFont('DM Sans',this)">DM Sans</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Toast
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const nombre = e.target.querySelector('input[type=text]').value;
+    const correo = e.target.querySelector('input[type=email]').value;
+    const mensaje = e.target.querySelector('textarea').value;
+    const subject = encodeURIComponent('Contacto desde portafolio — ' + nombre);
+    const body = encodeURIComponent('Nombre: ' + nombre + '\nCorreo: ' + correo + '\n\nMensaje:\n' + mensaje);
+    window.location.href = 'mailto:roberth.vega@outlook.com?subject=' + subject + '&body=' + body;
+    showToast('Abriendo cliente de correo ✓');
+    e.target.reset();
+  }
+
+  // Tweaks
+  window.addEventListener('message', (e) => {
+    if (e.data?.type === '__activate_edit_mode') {
+      document.getElementById('tweaks-panel').classList.add('active');
+    } else if (e.data?.type === '__deactivate_edit_mode') {
+      document.getElementById('tweaks-panel').classList.remove('active');
+    }
+  });
+  window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+  function setAccent(hue, label, btn) {
+    document.documentElement.style.setProperty('--accent', `oklch(70% 0.22 ${hue})`);
+    document.documentElement.style.setProperty('--accent2', `oklch(70% 0.22 ${+hue+40})`);
+    btn.closest('.tweak-options').querySelectorAll('.tweak-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { accent: hue } }, '*');
+  }
+
+  function setBg(mode, btn) {
+    const bgs = { dark: ['#080b12','#0d1120','#111827'], navy: ['#060a18','#0b1128','#101930'], charcoal: ['#111113','#18181c','#1e1e24'] };
+    const [bg, bg2, bg3] = bgs[mode];
+    document.documentElement.style.setProperty('--bg', bg);
+    document.documentElement.style.setProperty('--bg2', bg2);
+    document.documentElement.style.setProperty('--bg3', bg3);
+    btn.closest('.tweak-options').querySelectorAll('.tweak-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function setFont(font, btn) {
+    document.documentElement.style.setProperty('--font-display', `'${font}', sans-serif`);
+    btn.closest('.tweak-options').querySelectorAll('.tweak-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Load font if needed
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css2?family=${font.replace(' ','+')}:wght@300;400;500;600;700&display=swap`;
+    document.head.appendChild(link);
+  }
+</script>
 </body>
+</html>
