@@ -828,15 +828,69 @@
 
   .toast.show { transform: translateX(-50%) translateY(0); }
 
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  @media (max-width: 768px) {
+    .section-inner { padding: 0 1.25rem; }
+  }
+
+  @media (max-width: 900px) {
+    #hero { flex-direction: column; align-items: flex-start; gap: 2rem; padding: 7rem 2rem 3rem; }
+    .hero-photo { width: 100%; height: 260px; order: 2; border-radius: 16px; }
+    .hero-photo img { object-position: center 15%; }
+    .hero-inner { max-width: 100%; order: 1; }
+  }
+
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .nav-links { display: none; }
-    #hero { padding: 6rem 1.5rem 3rem; }
-    section { padding: 4rem 1.5rem; }
-    #about .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    nav > div:last-child { gap: 0.5rem; }
+
+    #hero { padding: 5.5rem 1.25rem 2.5rem; gap: 1.5rem; }
+    h1 { font-size: clamp(2.2rem, 10vw, 3.5rem); }
+    .hero-sub { font-size: 1rem; }
+    .hero-actions { flex-direction: column; gap: 0.75rem; }
+    .btn-primary, .btn-secondary { text-align: center; }
+    .hero-photo { height: 240px; }
+
+    section { padding: 3.5rem 1.25rem; }
+    #about .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .about-stat-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+    #skills .inner, #services .inner { padding: 0 1.25rem; }
+    #skills { padding: 3.5rem 0; }
+    .skills-grid { grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .skill-card { padding: 1rem 0.5rem; }
+    .skill-icon { width: 28px; height: 28px; }
+    .skill-name { font-size: 0.72rem; }
+
+    #experience { padding: 3.5rem 0 !important; }
+
+    .projects-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+
+    /* Education grid */
+    #education { padding: 3.5rem 0 !important; }
+
     .form-row { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; }
-    #skills .inner, #services .inner { padding: 0 1.5rem; }
+    #contact { padding: 3.5rem 1.25rem; }
+
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.25rem; }
+
+    .section-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+
+    #tweaks-panel { width: calc(100vw - 2rem); right: 1rem; bottom: 1rem; }
+  }
+
+  @media (max-width: 420px) {
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-stat-grid { grid-template-columns: 1fr; }
+    .hero-actions { gap: 0.5rem; }
+    .btn-primary, .btn-secondary { padding: 0.75rem 1.25rem; font-size: 0.85rem; }
   }
 </style>
 </head>
@@ -869,7 +923,7 @@
   <div class="hero-inner">
     <div class="hero-tag">Disponible para proyectos</div>
     <h1>Hola, soy<br><span>Roberth Vega</span></h1>
-    <p class="hero-sub">Ingeniero de Sistemas e Informática — Analista Programador Full Stack con <strong style="color:var(--text)">+9 años de experiencia</strong> en Java, Spring Boot, Angular y SQL Server. Lima, Perú.</p>
+    <p class="hero-sub">Developer Java / Spring Framework / Angular / Docker / AWS. Soluciones empresariales escalables y orientadas a resultados. Lima, Perú.</p>
     <div class="hero-actions">
       <a href="#projects" class="btn-primary">Ver proyectos</a>
       <a href="#contact" class="btn-secondary">Conversemos</a>
@@ -891,7 +945,7 @@
   <div class="section-sep reveal"></div>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p>Soy <strong>Roberth Henry Vega Chupos</strong>, Ingeniero de Sistemas e Informática egresado de la <strong>UTP (2019–2023)</strong>. Me desempeño como <strong>Analista Programador Full Stack</strong> con más de 9 años de experiencia en desarrollo de software empresarial.</p>
+      <p>Soy <strong>Roberth Henry Vega Chupos</strong>, Ingeniero de Sistemas e Informática. Me desempeño como <strong>Analista Desarrollador Full Stack</strong> con experiencia en desarrollo de software empresarial y consultoría TI.</p>
       <p>He trabajado en empresas del sector salud, educación y distribución, desarrollando soluciones con <strong>Java, Spring Boot, Angular, SQL Server y Python</strong>. También tengo experiencia en infraestructura: <strong>Windows Server, VMware VSphere, Fortinet y automatización de procesos</strong>.</p>
       <p>Me apasiona construir sistemas que resuelvan problemas reales, con código limpio, escalable y orientado a resultados de negocio.</p>
       <br>
@@ -899,7 +953,7 @@
     </div>
     <div class="about-stat-grid reveal">
       <div class="stat-card">
-        <div class="stat-num">9+</div>
+        <div class="stat-num">10+</div>
         <div class="stat-label">Años de experiencia profesional en TI</div>
       </div>
       <div class="stat-card">
@@ -911,8 +965,8 @@
         <div class="stat-label">Tecnologías dominadas</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num">UTP</div>
-        <div class="stat-label">Ing. Sistemas e Informática 2019–2023</div>
+        <div class="stat-num">🇺🇸</div>
+        <div class="stat-label">Proyectos en remoto para clientes internacionales</div>
       </div>
     </div>
   </div>
@@ -982,8 +1036,7 @@
 </section>
 
 <!-- EXPERIENCE -->
-<section id="experience" style="background:var(--bg2);max-width:100%;padding:7rem 0;">
-  <div style="max-width:1200px;margin:0 auto;padding:0 4rem;">
+<section id="experience" style="background:var(--bg2);max-width:100%;padding:7rem 0;"><div class="section-inner">
     <div class="section-label reveal">// trayectoria</div>
     <h2 class="section-title reveal">Experiencia profesional</h2>
     <div class="section-sep reveal"></div>
@@ -991,17 +1044,25 @@
       <div style="position:absolute;left:11px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,var(--accent),transparent);opacity:0.3;"></div>
 
       <div class="reveal" style="display:grid;grid-template-columns:24px 1fr;gap:1.5rem 2rem;padding-bottom:2.5rem;">
-        <div style="width:24px;height:24px;border-radius:50%;background:oklch(70% 0.22 210/0.15);border:2px solid var(--accent);margin-top:4px;flex-shrink:0;"></div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;">
+        <div style="width:24px;height:24px;border-radius:50%;background:oklch(70% 0.22 210/0.15);border:2px solid var(--accent);margin-top:4px;flex-shrink:0;position:relative;">
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;border-radius:50%;background:var(--accent);"></div>
+        </div>
+        <div style="background:oklch(70% 0.22 210/0.07);border:1px solid oklch(70% 0.22 210/0.3);border-radius:16px;padding:1.75rem;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
             <div>
-              <div style="font-size:1.05rem;font-weight:700;margin-bottom:0.2rem;">Analista Programador</div>
-              <div style="font-size:0.9rem;color:var(--accent);font-weight:600;">TCONTAKTO</div>
+              <div style="font-size:1.05rem;font-weight:700;margin-bottom:0.2rem;">Analista Desarrollador <span style="font-size:0.75rem;font-family:var(--font-mono);color:var(--accent);background:oklch(70% 0.22 210/0.1);padding:0.2rem 0.5rem;border-radius:100px;margin-left:0.5rem;">Actual</span></div>
+              <div style="font-size:0.9rem;color:var(--accent);font-weight:600;">LIT Consulting — Perú & Estados Unidos</div>
             </div>
-            <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);background:var(--surface);padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--border);">Abril 2023 – Junio 2023</div>
+            <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);background:var(--surface);padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--border);">Oct 2023 – Presente</div>
           </div>
-          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Desarrollo BackEnd y FrontEnd, automatización de procesos de campañas con proveedores.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">MS SQL</span><span class="tag">Python</span></div>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Desarrollo Full Stack con Java, Spring Framework, Angular, Docker y AWS para clientes en Perú y Estados Unidos.</p>
+          <ul style="font-size:0.875rem;color:var(--muted);line-height:1.8;margin-bottom:1rem;padding-left:1.2rem;">
+            <li>Migración de sistema desktop a plataforma web desplegada en <strong style="color:var(--text);">AWS</strong> para el Programa Warmiñan — <strong style="color:var(--text);">MIMP</strong></li>
+            <li>Desarrollo de módulos para <strong style="color:var(--text);">sistema contable</strong> orientado al mercado estadounidense</li>
+            <li>Cambios y mejoras en módulos de <strong style="color:var(--text);">Recursos Humanos y Tesorería</strong> para clientes del Estado peruano: <strong style="color:var(--text);">OSCE, INACAL</strong></li>
+            <li>Implementación del <a href="https://lit.ilitc.com/#/auth/login" target="_blank" style="color:var(--accent);">Sistema de RRHH ILITC</a></li>
+          </ul>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Java</span><span class="tag">Spring Framework</span><span class="tag">Angular</span><span class="tag">Docker</span><span class="tag">AWS</span><span class="tag">PostgreSQL</span></div>
         </div>
       </div>
 
@@ -1045,7 +1106,7 @@
             </div>
             <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);background:var(--surface);padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--border);">Ene 2015 – Ago 2019 · 5 años</div>
           </div>
-          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Desarrollo de módulos ERP en C# Visual Studio, Stored Procedures SQL Server, QA, administración Windows Server 2012, VPS y servidor Asterisk.</p>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">4 años como Soporte Técnico (infraestructura, redes, servidores) + 1 año como Analista Programador desarrollando módulos ERP en C#, Stored Procedures SQL Server y QA.</p>
           <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">C# .NET</span><span class="tag">SQL Server</span><span class="tag">Windows Server</span><span class="tag">Fortinet</span><span class="tag">VMware</span></div>
         </div>
       </div>
@@ -1056,12 +1117,12 @@
           <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.75rem;">
             <div>
               <div style="font-size:1.05rem;font-weight:700;margin-bottom:0.2rem;">Freelance / Consultor</div>
-              <div style="font-size:0.9rem;color:var(--accent);font-weight:600;">INVERAGRO · NEXUSS · TECXOF</div>
+              <div style="font-size:0.9rem;color:var(--accent);font-weight:600;">TCONTAKTO · INVERAGRO · NEXUSS · TECXOF</div>
             </div>
             <div style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);background:var(--surface);padding:0.3rem 0.7rem;border-radius:100px;border:1px solid var(--border);">Varios períodos</div>
           </div>
-          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">Desarrollo con Java Spring Boot y Angular (INVERAGRO), consultoría en infraestructura de servidores EsSalud (NEXUSS), consultoría BDD y RDP (TECXOF).</p>
-          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">Infraestructura</span></div>
+          <p style="font-size:0.875rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;">TCONTAKTO: desarrollo BackEnd/FrontEnd y automatización de campañas. INVERAGRO: Java Spring Boot y Angular. NEXUSS: consultoría infraestructura EsSalud. TECXOF: consultoría BDD y RDP.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.4rem;"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">Python</span><span class="tag">Infraestructura</span></div>
         </div>
       </div>
     </div>
@@ -1079,44 +1140,43 @@
         <div class="project-thumb-inner"><span class="project-thumb-icon">👥</span></div>
       </div>
       <div class="project-body">
+        <div class="project-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">AWS</span></div>
+        <div class="project-title">Sistema Warmiñan — MIMP</div>
+        <p class="project-desc">Migración de sistema desktop a plataforma web para el Ministerio de la Mujer, Programa Warmiñan. Desplegado en AWS con arquitectura escalable.</p>
+        <a href="#" class="project-link" onclick="showToast('Proyecto gubernamental privado'); return false;">Proyecto gubernamental →</a>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-thumb">
+        <div class="project-thumb-inner"><span class="project-thumb-icon">📊</span></div>
+      </div>
+      <div class="project-body">
         <div class="project-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">SQL Server</span></div>
-        <div class="project-title">Sistema de Recursos Humanos — ILITC</div>
-        <p class="project-desc">Plataforma web de gestión de RRHH. Módulos de personal, asistencia y reportería. Migración de sistema de escritorio a arquitectura web moderna.</p>
+        <div class="project-title">Sistema Contable — Cliente USA</div>
+        <p class="project-desc">Módulos contables para cliente en Estados Unidos. Gestión financiera, reportes y automatización de procesos para el mercado norteamericano.</p>
+        <a href="#" class="project-link" onclick="showToast('Demo privado'); return false;">Proyecto privado →</a>
+      </div>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-thumb">
+        <div class="project-thumb-inner"><span class="project-thumb-icon">👥</span></div>
+      </div>
+      <div class="project-body">
+        <div class="project-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">SQL Server</span></div>
+        <div class="project-title">Sistema de RRHH — ILITC</div>
+        <p class="project-desc">Plataforma web de gestión de Recursos Humanos. Módulos de personal, asistencia y reportería. Arquitectura moderna con Spring Boot y Angular.</p>
         <a href="https://lit.ilitc.com/#/auth/login" target="_blank" class="project-link">Ver demo →</a>
-      </div>
-    </div>
-    <div class="project-card reveal">
-      <div class="project-thumb">
-        <div class="project-thumb-inner"><span class="project-thumb-icon">📚</span></div>
-      </div>
-      <div class="project-body">
-        <div class="project-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">MySQL</span><span class="tag">Power BI</span></div>
-        <div class="project-title">Plataforma Canvas Data — Hermanos Maristas</div>
-        <p class="project-desc">Automatización de procesos educativos con Canvas Data y módulo de Presupuestos. Dashboards de reportería con Power BI.</p>
-        <a href="#" class="project-link" onclick="showToast('Demo privado'); return false;">Proyecto privado →</a>
-      </div>
-    </div>
-    <div class="project-card reveal">
-      <div class="project-thumb">
-        <div class="project-thumb-inner"><span class="project-thumb-icon">🏭</span></div>
-      </div>
-      <div class="project-body">
-        <div class="project-tags"><span class="tag">C# .NET</span><span class="tag">SQL Server</span><span class="tag">ERP</span><span class="tag">Windows Server</span></div>
-        <div class="project-title">Módulos ERP — Panorama Distribuidores</div>
-        <p class="project-desc">Desarrollo de módulos de Logística, Compras y Ventas sobre sistema ERP empresarial en C# Visual Studio, con SQL Server 2014.</p>
-        <a href="#" class="project-link" onclick="showToast('Demo privado'); return false;">Proyecto privado →</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- EDUCATION -->
-<section id="education" style="background:var(--bg2);max-width:100%;padding:7rem 0;">
-  <div style="max-width:1200px;margin:0 auto;padding:0 4rem;">
+<section id="education" style="background:var(--bg2);max-width:100%;padding:7rem 0;"><div class="section-inner">
     <div class="section-label reveal">// formación</div>
     <h2 class="section-title reveal">Educación & Certificaciones</h2>
     <div class="section-sep reveal"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;" class="edu-grid">
       <div class="stat-card reveal" style="padding:2rem;">
         <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1rem;">Educación Superior</div>
         <div style="margin-bottom:1.5rem;">
