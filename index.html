@@ -579,6 +579,37 @@
     line-height: 1.7;
   }
 
+  /* CAROUSEL */
+  .project-thumb.carousel { position: relative; overflow: hidden; padding: 0; background: #000; }
+  .carousel-track { position: relative; width: 100%; height: 100%; }
+  .carousel-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top center;
+    opacity: 0; transition: opacity 0.5s ease;
+  }
+  .carousel-img.active { opacity: 1; }
+  .carousel-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(0,0,0,0.55); color: white; border: 1px solid rgba(255,255,255,0.15);
+    width: 32px; height: 32px; border-radius: 50%;
+    cursor: pointer; font-size: 1.1rem; line-height: 1;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; z-index: 2;
+  }
+  .carousel-btn:hover { background: rgba(0,0,0,0.85); }
+  .carousel-prev { left: 0.6rem; }
+  .carousel-next { right: 0.6rem; }
+  .carousel-dots {
+    position: absolute; bottom: 0.7rem; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 0.4rem; z-index: 2;
+  }
+  .carousel-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(255,255,255,0.4); cursor: pointer; transition: background 0.2s;
+  }
+  .carousel-dot.active { background: white; }
+
   /* CONTACT */
   #contact .contact-inner {
     max-width: 680px;
@@ -1136,8 +1167,17 @@
   <div class="section-sep reveal"></div>
   <div class="projects-grid">
     <div class="project-card reveal">
-      <div class="project-thumb">
-        <div class="project-thumb-inner"><span class="project-thumb-icon">👥</span></div>
+      <div class="project-thumb carousel" data-carousel>
+        <div class="carousel-track">
+          <img src="uploads/warminan-1.png" alt="Login Sistema Warmiñan" class="carousel-img active">
+          <img src="uploads/warminan-2.png" alt="Dashboard Warmiñan" class="carousel-img">
+        </div>
+        <button class="carousel-btn carousel-prev" aria-label="Anterior">‹</button>
+        <button class="carousel-btn carousel-next" aria-label="Siguiente">›</button>
+        <div class="carousel-dots">
+          <span class="carousel-dot active" data-idx="0"></span>
+          <span class="carousel-dot" data-idx="1"></span>
+        </div>
       </div>
       <div class="project-body">
         <div class="project-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">AWS</span></div>
@@ -1147,8 +1187,17 @@
       </div>
     </div>
     <div class="project-card reveal">
-      <div class="project-thumb">
-        <div class="project-thumb-inner"><span class="project-thumb-icon">📊</span></div>
+      <div class="project-thumb carousel" data-carousel>
+        <div class="carousel-track">
+          <img src="uploads/contable-1.png" alt="Login Sistema Contable" class="carousel-img active">
+          <img src="uploads/contable-2.png" alt="Dashboard Sistema Contable" class="carousel-img">
+        </div>
+        <button class="carousel-btn carousel-prev" aria-label="Anterior">‹</button>
+        <button class="carousel-btn carousel-next" aria-label="Siguiente">›</button>
+        <div class="carousel-dots">
+          <span class="carousel-dot active" data-idx="0"></span>
+          <span class="carousel-dot" data-idx="1"></span>
+        </div>
       </div>
       <div class="project-body">
         <div class="project-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Angular</span><span class="tag">SQL Server</span></div>
@@ -1313,6 +1362,22 @@
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 2800);
   }
+
+  // Carousel
+  document.querySelectorAll('[data-carousel]').forEach(c => {
+    const imgs = c.querySelectorAll('.carousel-img');
+    const dots = c.querySelectorAll('.carousel-dot');
+    let idx = 0;
+    const show = (i) => {
+      idx = (i + imgs.length) % imgs.length;
+      imgs.forEach((img, j) => img.classList.toggle('active', j === idx));
+      dots.forEach((d, j) => d.classList.toggle('active', j === idx));
+    };
+    c.querySelector('.carousel-prev').addEventListener('click', () => show(idx - 1));
+    c.querySelector('.carousel-next').addEventListener('click', () => show(idx + 1));
+    dots.forEach((d, j) => d.addEventListener('click', () => show(j)));
+    setInterval(() => show(idx + 1), 5000);
+  });
 
   // Form submit
   function handleSubmit(e) {
